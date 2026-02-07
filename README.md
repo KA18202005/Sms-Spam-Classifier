@@ -45,4 +45,10 @@ This app predicts whether a given message is **Spam** or **Not Spam** in real ti
 ---
 
 ## 📁 Project Structure
+├── app.py
+├── model.pkl
+├── vectorizer.pkl
+├── requirements.txt
+├── runtime.txt
+└── README.md
 
