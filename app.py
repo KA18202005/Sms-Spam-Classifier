@@ -3,18 +3,21 @@ import pickle
 import string
 import nltk
 
-nltk.download('punkt', quiet=True)
-nltk.download('stopwords', quiet=True)
-
 from nltk.corpus import stopwords
 from nltk.stem.porter import PorterStemmer
+from nltk.tokenize import wordpunct_tokenize
+
+# Download only what is really needed
+nltk.download('stopwords', quiet=True)
 
 ps = PorterStemmer()
 stop_words = set(stopwords.words('english'))
 
 def transform_text(text):
     text = text.lower()
-    tokens = nltk.word_tokenize(text)
+
+    # ✅ SAFE tokenizer (no punkt / punkt_tab needed)
+    tokens = wordpunct_tokenize(text)
 
     # keep alphanumeric only
     tokens = [i for i in tokens if i.isalnum()]
@@ -37,7 +40,7 @@ input_sms = st.text_area("Enter the message")
 if st.button("Predict"):
     transformed_sms = transform_text(input_sms)
 
-    vector_input = tfidf.transform([transformed_sms])  # 👈 important fix
+    vector_input = tfidf.transform([transformed_sms])
 
     result = model.predict(vector_input)[0]
 
